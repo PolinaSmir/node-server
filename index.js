@@ -3,14 +3,27 @@ const fs = require("fs/promises");
 
 const PORT = 5000;
 
-const requestListener = (request, response) => {
+const requestListener = async (request, response) => {
   const { url } = request;
 
   if (url === "/index.html") {
-    fs.readFile("./views/index.html", "utf-8").then((data) => {
+    try {
+      const data = await fs.readFile("./views/index.html", "utf-8");
       response.statusCode = 200;
       response.end(data);
-    });
+    } catch (error) {
+      response.statusCode = 404;
+      response.end();
+    }
+  } else if (url === "/style.css") {
+    try {
+      const data = await fs.readFile("./views/style.css", "utf-8");
+      response.statusCode = 200;
+      response.end(data);
+    } catch (error) {
+      response.statusCode = 404;
+      response.end();
+    }
   } else {
     response.statusCode = 404;
     response.end();
