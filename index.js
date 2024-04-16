@@ -11,7 +11,7 @@ app.post("/user", bodyParcer, validateUser, UserController.registerUser);
 
 app.get("/users", UserController.getAllUsers);
 
-app.get("/user", UserController.getOneUser);
+app.get("/user/:userId", UserController.getOneUser);
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);

@@ -15,5 +15,13 @@ module.exports.getAllUsers = (req, res, next) => {
 };
 
 module.exports.getOneUser = (req, res, next) => {
-  console.log(req.query);
+  const { userId } = req.params;
+
+  const user = User.findOne(Number(userId));
+
+  if (user) {
+    res.status(200).send(user);
+  } else {
+    res.status(404).end();
+  }
 };
